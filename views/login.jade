@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  form(action="/login", method="post")
+    input(type="text" name="loginId")
+    input(type="password" name="password")
+    input(type="submit" value="log in")
