@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 const routes = require('./routes/index');
 const login = require('./routes/login');
+const signup = require('./routes/signup');
 const shops = require('./routes/shops');
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/login', login);
+app.use('/signup', signup);
 app.use('/shops', shops);
 
 // catch 404 and forward to error handler
