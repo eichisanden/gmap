@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('signup');
+});
+
+router.post('/', function(req, res, next) {
+  res.render('index', { title: 'Signup Successfull' });
 });
 
 module.exports = router;
