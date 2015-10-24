@@ -1,5 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const yelp = require('node-yelp');
+
+var client = yelp.createClient({
+  oauth: {
+    "consumer_key": "",
+    "consumer_secret": "",
+    "token": "",
+    "token_secret": ""
+  }
+});
 
 const data = [
   {id: 0, lat: 35.656259, lng: 139.723116, name: 'A point'},
@@ -13,8 +23,15 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  res.json({
-    rows: data
+  client.search({
+    term: "food",
+    bounds: req.query.swLat + "," + req.query.swLng + "|" + req.query.neLat + "," + req.query.swLng,
+    limit: 3
+  }).then(function (data) {
+    console.log(data);
+    res.json({
+      rows: data
+    });
   });
 });
 
