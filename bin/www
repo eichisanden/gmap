@@ -12,10 +12,10 @@ const http = require('http');
 /**
  * Get port from environment and store in Express.
  */
-
-// Can't use `process.env.PORT` in strong mode. I don't know reason.
-//const port = normalizePort(process.env.PORT || '3000');
-const port = normalizePort('3000');
+let port = 3000;
+if (app.get('env') === 'production') {
+  port = normalizePort(process.env.PORT || '3000');
+}
 app.set('port', port);
 
 /**
