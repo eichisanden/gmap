@@ -1,17 +1,19 @@
 'use strict';
 
+/* global google */
+
 var initMap = function () {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.687509, lng: 139.703345},
-    scrollwheel: false,
-    zoom: 20
-  }),
+      center: {lat: 35.687509, lng: 139.703345},
+      scrollwheel: false,
+      zoom: 20
+    }),
     markers = [],
     infoWindow = new google.maps.InfoWindow();
 
   var detailShow = function (data) {
     var info = data.row,
-        latLng = new google.maps.LatLng(info.lat, info.lng);
+      latLng = new google.maps.LatLng(info.lat, info.lng);
     infoWindow.setContent(info.name);
     infoWindow.setPosition(latLng);
     infoWindow.open(map);
@@ -28,13 +30,13 @@ var initMap = function () {
 
   var placeMarker = function (id, info) {
     var position = new google.maps.LatLng(info.lat, info.lng),
-        marker = new google.maps.Marker({
-          position: position,
-          map: map
-        });
+      marker = new google.maps.Marker({
+        position: position,
+        map: map
+      });
     google.maps.event.addListener(marker, 'click', function () {
       getDetailInfo(id);
-    })
+    });
     marker[id] = marker;
   };
 
@@ -66,19 +68,19 @@ var initMap = function () {
 
   var getShopsInRange = function () {
     var northEast = map.getBounds().getNorthEast(),
-        southWest = map.getBounds().getSouthWest();
+      southWest = map.getBounds().getSouthWest();
     $.ajax({
-      url: "/shops",
-      dataType: "json",
+      url: '/shops',
+      dataType: 'json',
       data: {
         neLat: northEast.lat(),
         neLng: northEast.lng(),
         swLat: southWest.lat(),
         swLng: southWest.lng()
       },
-      type: "GET"
+      type: 'GET'
     }).done(showShopsInRange);
   };
 
   google.maps.event.addListener(map, 'idle', getShopsInRange);
-}
+};
