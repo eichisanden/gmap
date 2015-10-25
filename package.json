@@ -18,5 +18,8 @@
     "node-yelp": "0.0.3",
     "serve-favicon": "~2.3.0",
     "stylus": "0.42.3"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^3.6.3"
   }
 }

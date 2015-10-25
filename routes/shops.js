@@ -1,13 +1,15 @@
+'use strong';
+
 const express = require('express');
 const router = express.Router();
 const yelp = require('node-yelp');
 
-var client = yelp.createClient({
+let client = yelp.createClient({
   oauth: {
-    "consumer_key": "",
-    "consumer_secret": "",
-    "token": "",
-    "token_secret": ""
+    'consumer_key': '',
+    'consumer_secret': '',
+    'token': '',
+    'token_secret': ''
   }
 });
 
@@ -16,16 +18,16 @@ const data = [
   {id: 1, lat: 35.686259, lng: 139.713116, name: 'B point'}
 ];
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', (req, res) => {
   res.json({
     row: data[req.params.id]
   });
 });
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   client.search({
-    term: "food",
-    bounds: req.query.swLat + "," + req.query.swLng + "|" + req.query.neLat + "," + req.query.swLng,
+    term: 'food',
+    bounds: req.query.swLat + ',' + req.query.swLng + '|' + req.query.neLat + ',' + req.query.swLng,
     limit: 3
   }).then(function (data) {
     console.log(data);
