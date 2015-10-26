@@ -1,19 +1,20 @@
 'use strict';
 
 /* global google */
+/* exported initMap */
 
 var initMap = function () {
   var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 35.687509, lng: 139.703345},
+      center: {lat: 35.7873716, lng: 139.6092485},
       scrollwheel: false,
-      zoom: 20
+      zoom: 16
     }),
     markers = [],
     infoWindow = new google.maps.InfoWindow();
 
   var detailShow = function (data) {
     var info = data.row,
-      latLng = new google.maps.LatLng(info.lat, info.lng);
+      latLng = new google.maps.LatLng(info.location.coordinate.latitude, info.location.coordinate.longitude);
     infoWindow.setContent(info.name);
     infoWindow.setPosition(latLng);
     infoWindow.open(map);
@@ -29,7 +30,7 @@ var initMap = function () {
   };
 
   var placeMarker = function (id, info) {
-    var position = new google.maps.LatLng(info.lat, info.lng),
+    var position = new google.maps.LatLng(info.location.coordinate.latitude, info.location.coordinate.longitude),
       marker = new google.maps.Marker({
         position: position,
         map: map
@@ -38,6 +39,8 @@ var initMap = function () {
       getDetailInfo(id);
     });
     marker[id] = marker;
+    console.table(info);
+    $('div#shops').append('<p><a href="' + info.url +'" target="_blank">' + info.name + '</a><img src="' + info.rating_img_url + '"></p><p>' + info.snippet_text + '</p>');
   };
 
   var showShopsInRange = function (data) {

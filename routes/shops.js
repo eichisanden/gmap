@@ -6,33 +6,33 @@ const yelp = require('node-yelp');
 
 let client = yelp.createClient({
   oauth: {
-    'consumer_key': '',
-    'consumer_secret': '',
-    'token': '',
-    'token_secret': ''
+
   }
 });
 
-const data = [
-  {id: 0, lat: 35.656259, lng: 139.723116, name: 'A point'},
-  {id: 1, lat: 35.686259, lng: 139.713116, name: 'B point'}
-];
-
 router.get('/:id', (req, res) => {
-  res.json({
-    row: data[req.params.id]
+  client.business(req.params.id, {
+    'cc': 'JP',
+    lang: 'ja'
+  }).then(function (data) {
+    console.log(data);
+    res.json({
+      row: data
+    });
   });
 });
 
 router.get('/', (req, res) => {
   client.search({
-    term: 'food',
-    bounds: req.query.swLat + ',' + req.query.swLng + '|' + req.query.neLat + ',' + req.query.swLng,
+    bounds: req.query.swLat + ',' + req.query.swLng + '|' + req.query.neLat + ',' + req.query.neLng,
+    //bounds: '35.787198,139.608562|35.789634,139.614055',
+    cc: 'JP',
+    lang: 'ja',
     limit: 3
   }).then(function (data) {
     console.log(data);
     res.json({
-      rows: data
+      rows: data.businesses
     });
   });
 });
