@@ -3,7 +3,7 @@
 /* global google */
 /* exported initMap */
 
-var initMap = function () {
+$(function () {
   var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 35.7873716, lng: 139.6092485},
       scrollwheel: false,
@@ -86,4 +86,4 @@ var initMap = function () {
   };
 
   google.maps.event.addListener(map, 'idle', getShopsInRange);
-};
+});
